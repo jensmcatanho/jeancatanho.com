@@ -1,0 +1,3 @@
+[submodule "publisher-theme"]
+	path = publisher-theme
+	url = https://github.com/jensmcatanho/publisher-theme.git
