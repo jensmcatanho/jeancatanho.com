@@ -1,0 +1,76 @@
+I was implementing a Logger feature in my project when I had to decide how it should work. So, I had three options in mind of how to do this: a singleton object, which would require lots of references to it in the other classes of the project, a regular object, which would require instantiating it everywhere it was needed or, a static class, which would only require including the Logger's header in the file that was going to use it.
+
+<!--more-->
+
+Coming from a background of Java and C#, the solutions that I thought were all related to OOP and the static class seemed to be the best option I had in hands. But what exactly is a static class? Microsoft's <a href="https://msdn.microsoft.com/en-us/library/79b3xss3.aspx" target="_blank" rel="noopener">C# documentation</a> says that <em>"A static class is basically the same as a non-static class, but there is one difference: a static class cannot be instantiated."</em> and that <em>"A static class can be used as a convenient container for sets of methods that just operate on input parameters and do not have to get or set any internal instance fields."</em>.
+
+But wait, C++ doesn't have static classes! Oh, no problem, I can make a class with nothing but static methods and members.
+<pre class="lang:c++ decode:true" title="Logger.h">class Logger {
+	public:
+		static void StartLog();
+		static void Log(LogType, std::string, std::string);
+		static void DebugLog(std::string, std::string);
+		static void ErrorLog(std::string, std::string);
+		static void InfoLog(std::string, std::string);
+		static void SaveLog();
+	private:
+		static std::stringstream m_Log;
+		std::chrono::time_point&lt;std::chrono::system_clock&gt; m_StartTime;
+
+		std::chrono::time_point&lt;std::chrono::system_clock&gt; CurrentTime();
+		std::string DateString();
+};</pre>
+<pre class="lang:c++ decode:true" title="Logger.cpp">#include "Logger.h"
+
+std::stringstream Logger::m_Log;
+std::chrono::time_point&lt;std::chrono::system_clock&gt; Logger::m_StartTime;
+
+void Logger::Log(LogType, std::string, std::string) { /*...*/ }
+void Logger::DebugLog(std::string, std::string) { /*...*/ }
+void Logger::ErrorLog(std::string, std::string) { /*...*/ }
+void Logger::InfoLog(std::string, std::string) { /*...*/ }
+void Logger::SaveLog() { /*...*/ }
+
+std::chrono::time_point&lt;std::chrono::system_clock&gt; Logger::CurrentTime() { /*...*/ }
+std::string Logger::DateString() { /*...*/ }
+</pre>
+It's working so, problem solved, right? Kind of. I could simulate the behavior of a static in class in C++ but I could not help but wonder why C++ doesn't have this feature.
+
+Let's recall Microsoft's words: <em>"A static class can be used as a convenient container for sets of methods (...)"</em>. This is a must-have for languages like Java and C# that don't allow non-member functions for it is the only way to group them. In C++ this limitation does not exist given that it provides namespaces to group related functions (and other things, but let's stick with functions here).
+
+Despite being a right solution, a class of only static methods is not the C++ type of solution and since I'm writing code in C++, I should try the namespace solution. The files now look like this:
+<pre class="lang:c++ decode:true" title="Logger.h">namespace Logger {
+	void Log(LogType, std::string, std::string);
+	void DebugLog(std::string, std::string);
+	void ErrorLog(std::string, std::string);
+	void InfoLog(std::string, std::string);
+	void SaveLog();
+}</pre>
+<pre class="lang:c++ decode:true" title="Logger.cpp">#include "Logger.h"
+
+namespace Logger {
+	namespace {
+		std::stringstream m_Log;
+		std::chrono::time_point&lt;std::chrono::system_clock&gt; m_StartTime;
+
+		std::chrono::time_point&lt;std::chrono::system_clock&gt; CurrentTime() { /*...*/ }
+		std::string DateString() { /*...*/ }
+	}
+
+	void Log(LogType, std::string, std::string) { /*...*/ }
+	void DebugLog(std::string, std::string) { /*...*/ }
+	void ErrorLog(std::string, std::string) { /*...*/ }
+	void InfoLog(std::string, std::string) { /*...*/ }
+	void SaveLog() { /*...*/ }
+}
+</pre>
+Some factors that favor this approach to the "Java static method" pattern listed in <a href="http://stackoverflow.com/a/112451/4508847" target="_blank" rel="noopener">this answer in StackOverflow</a> are:
+<ul>
+ 	<li>static methods have access to the classes private symbols</li>
+ 	<li>private static methods are still visible (if inaccessible) to everyone, which breaches somewhat the encapsulation</li>
+ 	<li>static methods cannot be forward-declared</li>
+ 	<li>static methods cannot be overloaded by the class user without modifying the library header</li>
+ 	<li>there is nothing that can be done by a static method that can't be done better than a (possibly friend) non-member function in the same namespace</li>
+ 	<li>namespaces have their own semantics (they can be combined, they can be anonymous, etc.)</li>
+</ul>
+And there we go! A solution that meets it's requirements and is compliant with C++ code writing style.

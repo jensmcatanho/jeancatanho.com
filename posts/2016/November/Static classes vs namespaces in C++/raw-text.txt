@@ -1,0 +1,30 @@
+I was implementing a Logger feature in my project when I had to decide how it should work. So, I had three options in mind of how to do this: a singleton object, which would require lots of references to it in the other classes of the project, a regular object, which would require instantiating it everywhere it was needed or, a static class, which would only require including the Logger's header in the file that was going to use it.
+
+Coming from a background of Java and C#, the solutions that I thought were all related to OOP and the static class seemed to be the best option I had in hands. But what exactly is a static class? Microsoft's C# documentation says that "A static class is basically the same as a non-static class, but there is one difference: a static class cannot be instantiated." and that "A static class can be used as a convenient container for sets of methods that just operate on input parameters and do not have to get or set any internal instance fields.".
+
+But wait, C++ doesn't have static classes! Oh, no problem, I can make a class with nothing but static methods and members.
+
+Logger-v1.h
+
+Logger-v1.cpp
+
+It's working so, problem solved, right? Kind of. I could simulate the behavior of a static in class in C++ but I could not help but wonder why C++ doesn't have this feature.
+
+Let's recall Microsoft's words: "A static class can be used as a convenient container for sets of methods (...)". This is a must-have for languages like Java and C# that don't allow non-member functions for it is the only way to group them. In C++ this limitation does not exist given that it provides namespaces to group related functions (and other things, but let's stick with functions here).
+
+Despite being a right solution, a class of only static methods is not the C++ type of solution and since I'm writing code in C++, I should try the namespace solution. The files now look like this:
+
+Logger-v2.h
+
+Logger-v2.cpp
+
+Some factors that favor this approach to the "Java static method" pattern listed in this answer in StackOverflow are:
+
+    static methods have access to the classes private symbols
+    private static methods are still visible (if inaccessible) to everyone, which breaches somewhat the encapsulation
+    static methods cannot be forward-declared
+    static methods cannot be overloaded by the class user without modifying the library header
+    there is nothing that can be done by a static method that can't be done better than a (possibly friend) non-member function in the same namespace
+    namespaces have their own semantics (they can be combined, they can be anonymous, etc.)
+
+And there we go! A solution that meets it's requirements and is compliant with C++ code writing style.
