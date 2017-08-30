@@ -1,0 +1,36 @@
+Setting and reaching milestones can be troublesome tasks. However, making a project presentable and functional without established objectives is even worse. The lack of a clear goal when developing a project can lead to months or even years of endless optimizations. Occasionally, all you need to do is feel like you've completed something. Think of how many ideas never see the light of day due to perfectionism.
+
+Let's see an extreme example of poorly planning before talking about milestones. In the early 2000s, Adam Butcher started developing Tobias and the Dark Sceptres (which, by the way, is a great game) only to finish it 13 years later. Adam highlights his pitfalls in his The Game That Time Forgot video while he tells the story behind the development of his game. He sums them up as 6 A's:
+
+    - Ambition. Expanding a project scope more than it really needs.
+    - Absolutely no idea what he was doing. Developing a project that requires further knowledge than you already have.
+    - All those graphics. Being a perfectionist regarding the visual aspects.
+    - Aging. Spending so much time in a project that it does not even meet your own criteria anymore.
+    - Always sticking to the plan. Refusing to waive previously planned features.
+    - Albatross. Discarding the idea of giving up on a project in which you have already invested so much time.
+
+He eventually did finish the game but I'm sure no one wants to take that much time on just one project. Thus, it's important to keep in mind a few things so we can avoid these problems. Although these tips focus a little more on software development, it's trivial to apply them to any kind of project or standalone goals with little to no adaptation at all.
+Setting milestones
+
+First of all, what are milestones? Wikipedia defines them as "tools used in project management to mark specific points along a project timeline". However, this task is not simply to define a point to be reached but also to define when that point is reached. For example, a milestone for a Rock-paper-scissors game can be to have a GUI-less playable demo. What does a playable Rock-paper-scissors game need? Mainly two things: input reading (for the player's hand) and, at the very least, a mechanism of randomness (for the computer's hand). Now we have well-defined requirements and, therefore, we are closer to reach our main objective. By doing this, we avoid focusing on some details that are not necessary for testing the game itself. If we had decided to include a GUI from the start, we'd have more work getting the demo playable. Of course this is a small example, but in some cases the extra time and brainpower could be the difference between finishing and leaving a project behind.
+That being said, here are a few things that might be useful to think of when setting a milestone:
+
+    - Forget about optimizations (unless this is the focus of it). Early optimizations can and will be the death of you. Learn to identify what parts of your project you really need to improve to satisfy the requirements of your goal.
+    - Do not leave problems for your future self. Do not use tip #1 as an excuse to be sloppy. Develop from the start the habit of maintaining a decent project structure so your future self doesn't have to deal with issues that you should have already solved. If you're revisiting and refactoring code that has no relation with your current milestone, there is something wrong.
+    - Be realistic. If, for some reason, you do not have much time to work on your project, focus on smaller milestones. There is a big difference between taking a week working 4 hours a day to achieve a goal and taking a month working 1 hour a day to achieve the same goal.
+    - Define it as small as possible. You don't want to spend too much time focusing on only one objective. You'll eventually have to deal with frustration or boredom, which will compromise your progress.
+    - But not so small. They're still milestones and you need to see them as achievements. Completing them needs to give you a sense of job well done.
+    - Learn to estimate the time it will take to reach it. This will help you evaluate if your scope is too big or too small.
+
+After all is set, it's time to work your way into reaching your current objective.
+Reaching milestones
+
+Reaching a milestone is probably a more difficult task than setting it. It doesn't depend only on the objectives established but also on how you work to achieve them. Generally, after I have a goal defined, I break it to smaller tasks. Back in the Rock-paper-scissors example, suppose we're starting from scratch and we want a GUI-less playable demo. Some tasks that can be taken from this are: set up a development environment if we haven't already, read about the game we're implementing (maybe not so relevant in this example as the game is so well-known), outline the overall architecture of the game etc. Sometimes it's possible to break these tasks in even smaller new tasks. We could break the "set up a development environment" task in others such as: choose a programming language, install an IDE and install external libraries, for example.
+Some things that might be useful to keep in might while working your way to reaching a milestone are:
+
+    - Stick to the plan. If you're constantly making changes to your established goal there was no point in initially setting it at all.
+    - But not so much. Remember that one of Adam's pitfalls was to refuse to waive some features. If a milestone proves to be too big and there's a deadline to meet, it's probably a good idea to shorten it.
+    - Remind yourself of what you want to achieve. Sometimes it's difficult to leave a feature that has nothing to do with your goal for later. Try to avoid temptation.
+    - Know yourself. This is very important for personal projects. You need to be aware of your strengths and weaknesses. For example, if you can't manage very well more than one project at the same time, you should focus on one at a time.
+
+So, setting an optimal milestone is difficult. But it's also rewarding. As soon as you get the hang of it, you'll see that you'll leave fewer projects behind and you'll stop getting stuck in endless loops with no visible progress.
